@@ -11,6 +11,8 @@ public class App {
     public static void main(String[] args) {
         IniParser parser = new IniParser();
         try {
+            if (!parser.checkFileFormat(new File(args[0])))
+                throw new ParserException();
             Configuration config = parser.parse(new File(args[0]));
 
             System.out.println(config.section("ADC_DEV").getProperty("BufferLenSeconds").get());
