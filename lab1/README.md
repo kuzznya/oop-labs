@@ -1,6 +1,4 @@
-# Парсер INI файла
-
-INI file parser
+# INI file parser
 
 ## Usage
 
