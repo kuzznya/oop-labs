@@ -1,5 +1,7 @@
 # INI file parser
 
+[Source code](src/main/java/com/github/kuzznya/iniparser)
+
 ## Usage
 
 Parser usage is very simple - just create a new instance of parser &
