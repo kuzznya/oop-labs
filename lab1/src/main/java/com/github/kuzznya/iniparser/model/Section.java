@@ -47,6 +47,8 @@ public class Section {
 
         if (property.getType().equals(ValueType.DOUBLE))
             return (Double) property.getValue();
+        else if (property.getType().equals(ValueType.INT))
+            return (Integer) property.getValue();
         else
             throw new TypeMismatchException(ValueType.DOUBLE, property.getType());
     }
