@@ -2,7 +2,9 @@ package itmo.oop.lab2.controller;
 
 import itmo.oop.lab2.model.Store;
 import itmo.oop.lab2.service.ShopAssistantService;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.UUID;
 
@@ -18,6 +20,11 @@ public class AssistantController {
 
     @GetMapping
     public Store findStoreWithLowestPrice(@RequestParam("item") UUID itemId) {
-        return assistantService.getStoreWithLowestPrice(itemId);
+        return assistantService
+                .getStoreWithLowestPrice(itemId)
+                .orElseThrow(() ->
+                        new ResponseStatusException(HttpStatus.NOT_FOUND,
+                                "Store with item " + itemId + " not found")
+                );
     }
 }
