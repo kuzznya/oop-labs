@@ -27,7 +27,7 @@ public class Store {
     @Getter
     private String address;
 
-    @OneToMany
+    @OneToMany(mappedBy = "id", orphanRemoval = true)
     @Getter
     @JsonIgnore
     private List<Product> products;
