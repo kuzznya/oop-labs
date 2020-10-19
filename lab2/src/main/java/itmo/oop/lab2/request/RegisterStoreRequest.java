@@ -5,6 +5,10 @@ import lombok.Data;
 
 @Data
 public class RegisterStoreRequest {
+
+    @JsonProperty(required = true)
+    private String name;
+
     @JsonProperty(required = true)
     private String address;
 }

@@ -22,6 +22,9 @@ public class Store {
     private UUID id;
 
     @Getter
+    private String name;
+
+    @Getter
     private String address;
 
     @OneToMany
@@ -29,7 +32,8 @@ public class Store {
     @JsonIgnore
     private List<Product> products;
 
-    public Store(String address) {
+    public Store(String name, String address) {
+        this.name = name;
         this.address = address;
     }
 

@@ -26,8 +26,8 @@ public class StoreManagerService {
         return storeRepository.findById(id);
     }
 
-    public UUID addStore(String address) {
-        return storeRepository.save(new Store(address)).getId();
+    public UUID addStore(String name, String address) {
+        return storeRepository.save(new Store(name, address)).getId();
     }
 
     public Optional<Product> getProduct(Store store, UUID itemId) {

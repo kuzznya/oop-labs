@@ -23,7 +23,7 @@ public class StoreController {
 
     @PostMapping
     public UUID addStore(@RequestBody RegisterStoreRequest request) {
-        return managerService.addStore(request.getAddress());
+        return managerService.addStore(request.getName(), request.getAddress());
     }
 
     @GetMapping
