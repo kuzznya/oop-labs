@@ -1,6 +1,5 @@
 package itmo.oop.lab2.service;
 
-import itmo.oop.lab2.model.Product;
 import itmo.oop.lab2.model.Store;
 import itmo.oop.lab2.repository.StoreRepository;
 import org.springframework.stereotype.Service;
@@ -28,9 +27,5 @@ public class StoreManagerService {
 
     public UUID addStore(String name, String address) {
         return storeRepository.save(new Store(name, address)).getId();
-    }
-
-    public Optional<Product> getProduct(Store store, UUID itemId) {
-        return store.getProduct(itemId);
     }
 }
