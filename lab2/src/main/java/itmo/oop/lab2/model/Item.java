@@ -1,5 +1,7 @@
 package itmo.oop.lab2.model;
 
+import lombok.AccessLevel;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -10,7 +12,8 @@ import javax.persistence.Id;
 import java.util.UUID;
 
 @Entity
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@EqualsAndHashCode
 public class Item {
     @Id
     @GeneratedValue

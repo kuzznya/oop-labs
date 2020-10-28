@@ -1,19 +1,19 @@
 package itmo.oop.lab2.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AccessLevel;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 @Entity
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@EqualsAndHashCode
 public class Store {
 
     @Id
@@ -27,7 +27,7 @@ public class Store {
     @Getter
     private String address;
 
-    @OneToMany(mappedBy = "id", orphanRemoval = true)
+    @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
     @Getter
     @JsonIgnore
     private List<Product> products;
@@ -42,6 +42,19 @@ public class Store {
                 .stream()
                 .filter(product -> product.getItem().getId().equals(itemId))
                 .findAny();
+    }
+
+    public Optional<Product> orderProduct(UUID itemId, int amount) {
+        Optional<Product> optionalProduct = getProduct(itemId)
+                .filter(product -> product.getAmount() >= amount);
+        if (optionalProduct.isEmpty())
+            return Optional.empty();
+        Product product = optionalProduct.get();
+        product.setAmount(product.getAmount() - amount);
+
+        return Optional.of(
+                new Product(product.getItem(), this, amount, product.getPrice())
+        );
     }
 
     public void addProduct(Item item, int amount, float price) {
