@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -24,6 +25,11 @@ public class ItemController {
         return itemService.addItem(request.getName());
     }
 
+    @GetMapping
+    public List<Item> getItems() {
+        return itemService.getItems();
+    }
+
     @GetMapping("/{id}")
     public Item getItem(@PathVariable UUID id) {
         return itemService
@@ -34,7 +40,7 @@ public class ItemController {
                 );
     }
 
-    @GetMapping
+    @GetMapping(params = "name")
     public Item findItemByName(@RequestParam String name) {
         return itemService
                 .findItemByName(name)

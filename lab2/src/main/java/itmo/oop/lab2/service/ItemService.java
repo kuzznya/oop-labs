@@ -4,6 +4,7 @@ import itmo.oop.lab2.model.Item;
 import itmo.oop.lab2.repository.ItemRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -18,6 +19,10 @@ public class ItemService {
 
     public UUID addItem(String name) {
         return itemRepository.save(new Item(name)).getId();
+    }
+
+    public List<Item> getItems() {
+        return itemRepository.findAll();
     }
 
     public Optional<Item> getItem(UUID id) {

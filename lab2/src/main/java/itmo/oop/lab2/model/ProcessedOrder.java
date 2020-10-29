@@ -23,7 +23,7 @@ public class ProcessedOrder {
     @ManyToOne(cascade = CascadeType.ALL)
     private Store store;
 
-    @OneToMany(mappedBy = "id", orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL)
     @Getter
     private List<OrderPosition> positions;
 

@@ -43,7 +43,7 @@ public class StoreService {
         return store.getProduct(itemId);
     }
 
-    public void addProduct(UUID storeId, UUID itemId, int amount, int price) {
+    public void addProduct(UUID storeId, UUID itemId, int amount, float price) {
         Item item = itemRepository.getOne(itemId);
         updateStoreAndSave(storeId, store -> store.addProduct(item, amount, price));
     }

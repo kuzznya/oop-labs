@@ -22,7 +22,7 @@ public class OrderPosition {
     @JsonIgnore
     private ProcessedOrder order;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @Getter
     private Item item;
 

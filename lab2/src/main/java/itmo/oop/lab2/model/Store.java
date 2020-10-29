@@ -58,6 +58,15 @@ public class Store {
     }
 
     public void addProduct(Item item, int amount, float price) {
-        products.add(new Product(item, this, amount, price));
+        products
+                .stream()
+                .filter(product -> product.getItem().equals(item))
+                .findAny()
+                .ifPresentOrElse(product -> {
+                    product.setAmount(product.getAmount() + amount);
+                    product.setPrice(price);
+                    },
+                        () -> products.add(new Product(item, this, amount, price))
+                );
     }
 }
