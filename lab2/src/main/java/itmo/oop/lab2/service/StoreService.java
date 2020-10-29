@@ -60,7 +60,6 @@ public class StoreService {
                             .orElseThrow(OrderException::new)
             );
 
-        // FIXME: 20.10.2020 save not only order but also positions
         storeRepository.save(store);
 
         return orderRepository.save(order);
