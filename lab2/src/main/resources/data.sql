@@ -1,10 +1,15 @@
 INSERT INTO Store (id, name, address) VALUES
     (RANDOM_UUID(), 'DNS Shop', 'https://dns-shop.ru'),
-    (RANDOM_UUID(), 'Apple', 'https://apple.com');
+    (RANDOM_UUID(), 'Apple', 'https://apple.com'),
+    (RANDOM_UUID(), 'Yandex Market', 'https://market.yandex.ru');
 
 INSERT INTO Item (id, name) VALUES
     (RANDOM_UUID(), 'MacBook Air 2019'),
-    (RANDOM_UUID(), 'iMac 2020');
+    (RANDOM_UUID(), 'iMac 2020'),
+    (RANDOM_UUID(), 'Acer ABCD1'),
+    (RANDOM_UUID(), 'Acer ABCD2'),
+    (RANDOM_UUID(), 'Asus ZXCB'),
+    (RANDOM_UUID(), 'MSI M1');
 
 INSERT INTO Product (ID, ITEM_ID, STORE_ID, AMOUNT, PRICE) VALUES
     (RANDOM_UUID(),
@@ -14,6 +19,36 @@ INSERT INTO Product (ID, ITEM_ID, STORE_ID, AMOUNT, PRICE) VALUES
      100000),
     (RANDOM_UUID(),
      (SELECT id FROM Item WHERE name = 'iMac 2020'),
+     (SELECT id FROM Store WHERE name = 'DNS Shop'),
+     2,
+     900000),
+    (RANDOM_UUID(),
+     (SELECT id FROM Item WHERE name = 'iMac 2020'),
+     (SELECT id FROM Store WHERE name = 'DNS Shop'),
+     2,
+     900000),
+    (RANDOM_UUID(),
+     (SELECT id FROM Item WHERE name = 'MacBook Air 2019'),
+     (SELECT id FROM Store WHERE name = 'Apple'),
+     500,
+     90000),
+    (RANDOM_UUID(),
+     (SELECT id FROM Item WHERE name = 'iMac 2020'),
      (SELECT id FROM Store WHERE name = 'Apple'),
      100,
-     1000000);
+     1000000),
+    (RANDOM_UUID(),
+     (SELECT id FROM Item WHERE name = 'Acer ABCD1'),
+     (SELECT id FROM Store WHERE name = 'Yandex Market'),
+     20,
+     50000),
+    (RANDOM_UUID(),
+     (SELECT id FROM Item WHERE name = 'Acer ABCD2'),
+     (SELECT id FROM Store WHERE name = 'Yandex Market'),
+     10,
+     60000),
+    (RANDOM_UUID(),
+     (SELECT id FROM Item WHERE name = 'Asus ZXCB'),
+     (SELECT id FROM Store WHERE name = 'Yandex Market'),
+     5,
+     40000);
