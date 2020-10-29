@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -18,7 +19,12 @@ public class AssistantController {
         this.assistantService = assistantService;
     }
 
-    @GetMapping
+    @GetMapping("/stores-by-item")
+    public List<Store> findStoresSellingItem(@RequestParam("item") UUID itemId) {
+        return assistantService.getStoresSellingItem(itemId);
+    }
+
+    @GetMapping("/cheapest-store")
     public Store findStoreWithLowestPrice(@RequestParam("item") UUID itemId) {
         return assistantService
                 .getStoreWithLowestPrice(itemId)
