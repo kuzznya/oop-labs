@@ -18,4 +18,8 @@ public abstract class Account {
     private final ZonedDateTime creationDate;
 
     public abstract double getBalance();
+
+    public boolean isSuspicious() {
+        return client.getAddress().isPresent() && client.getPassport().isPresent();
+    }
 }

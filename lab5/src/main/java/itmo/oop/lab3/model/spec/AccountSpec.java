@@ -2,9 +2,7 @@ package itmo.oop.lab3.model.spec;
 
 import itmo.oop.lab3.model.Account;
 import itmo.oop.lab3.model.transaction.Transaction;
-import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +10,6 @@ import java.util.function.BiFunction;
 import java.util.function.BiPredicate;
 import java.util.function.Function;
 
-@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class AccountSpec {
     @Getter
     private final List<BiPredicate<Account, Transaction>> constraints;
@@ -36,6 +33,10 @@ public abstract class AccountSpec {
         private final List<BiPredicate<Account, Transaction>> constraints = new ArrayList<>();
         private final List<BiFunction<Account, Transaction, Double>> fees = new ArrayList<>();
         private Function<Account, Double> dailyCalculation = account -> 0.0;
+
+        public AccountSpecBuilder() {
+            constraints.add((account, transaction) -> !account.isSuspicious());
+        }
 
         public AccountSpecBuilder addConstraint(BiPredicate<Account, Transaction> constraint) {
             constraints.add(constraint);

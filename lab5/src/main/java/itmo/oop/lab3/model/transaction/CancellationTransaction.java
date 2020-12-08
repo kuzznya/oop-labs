@@ -4,7 +4,7 @@ import itmo.oop.lab3.model.BankContext;
 
 public class CancellationTransaction extends Transaction {
 
-    Transaction cancelling;
+    private final Transaction cancelling;
 
     public CancellationTransaction(Transaction cancelling) {
         super(cancelling.account, cancelling.amount);
