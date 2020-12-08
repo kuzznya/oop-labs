@@ -1,0 +1,16 @@
+plugins {
+    id 'java'
+}
+
+group 'com.github.kuzznya'
+version '0.0.1-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly 'org.projectlombok:lombok:1.18.12'
+    annotationProcessor 'org.projectlombok:lombok:1.18.12'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}

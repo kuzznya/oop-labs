@@ -1,0 +1,23 @@
+package itmo.oop.lab3.model.transaction;
+
+import itmo.oop.lab3.model.BankContext;
+
+public class CancellationTransaction extends Transaction {
+
+    Transaction cancelling;
+
+    public CancellationTransaction(Transaction cancelling) {
+        super(cancelling.account, cancelling.amount);
+        this.cancelling = cancelling;
+    }
+
+    @Override
+    public void execute(BankContext context) {
+        cancelling.cancel(context);
+    }
+
+    @Override
+    public void cancel(BankContext context) {
+        cancelling.execute(context);
+    }
+}
