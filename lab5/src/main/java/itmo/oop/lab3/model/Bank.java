@@ -2,23 +2,25 @@ package itmo.oop.lab3.model;
 
 import itmo.oop.lab3.model.client.Client;
 import itmo.oop.lab3.model.client.ClientAccount;
-import itmo.oop.lab3.model.client.ClientAccountFactory;
 import itmo.oop.lab3.model.transaction.CancellationTransaction;
 import itmo.oop.lab3.model.transaction.Transaction;
 import itmo.oop.lab3.util.DateTimeProvider;
-import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 import java.util.UUID;
 
-@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class Bank {
 
     @Getter
     private final UUID id;
 
     private final DateTimeProvider dateTimeProvider;
+
+    protected Bank(UUID id, DateTimeProvider dateTimeProvider) {
+        this.id = id;
+        this.dateTimeProvider = dateTimeProvider;
+
+    }
 
     protected abstract double getBalance(BankAccount account);
     protected abstract void withdraw(BankAccount account, double amount);
@@ -47,9 +49,10 @@ public abstract class Bank {
         execute(new CancellationTransaction(transaction));
     }
 
-    public ClientAccount createAccount(Client client, ClientAccountFactory factory) {
+    public ClientAccount createAccount(Client client) {
         BankAccount bankAccount = new BankAccount(client);
-        return factory.createAccount(bankAccount);
+        // TODO: 09.12.2020 remember bank account
+        return new ClientAccount(bankAccount);
     }
 
 

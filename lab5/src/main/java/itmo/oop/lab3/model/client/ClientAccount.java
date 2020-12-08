@@ -7,11 +7,11 @@ import itmo.oop.lab3.model.transaction.ReplenishmentTransaction;
 import itmo.oop.lab3.model.transaction.TransferTransaction;
 import itmo.oop.lab3.model.transaction.WithdrawTransaction;
 
-public abstract class ClientAccount extends Account {
+public class ClientAccount extends Account {
 
     private final Bank.BankAccount bankAccount;
 
-    protected ClientAccount(Bank.BankAccount bankAccount) {
+    public ClientAccount(Bank.BankAccount bankAccount) {
         super(bankAccount.getId(), bankAccount.getClient(), bankAccount.getCreationDate());
         this.bankAccount = bankAccount;
     }
