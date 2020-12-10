@@ -6,7 +6,7 @@ import itmo.oop.lab3.model.BankContext;
 public class WithdrawTransaction extends Transaction {
 
     public WithdrawTransaction(Bank.BankAccount account, double amount) {
-        super(account, amount);
+        super(account, -Math.abs(amount));
     }
 
     @Override

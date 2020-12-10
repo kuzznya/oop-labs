@@ -6,7 +6,7 @@ public class CreditAccountSpec extends AccountSpec {
                 .addFee((account, transaction) ->
                         account.getBalance() - transaction.getAmount() < 0 ? fixedFee : 0.0)
                 .addConstraint((account, transaction) ->
-                        account.getBalance() - transaction.getAmount() > -Math.abs(creditLimit))
+                        account.getBalance() + transaction.getAmount() > -Math.abs(creditLimit))
         );
     }
 }

@@ -6,7 +6,7 @@ import itmo.oop.lab3.model.BankContext;
 public class ReplenishmentTransaction extends Transaction {
 
     public ReplenishmentTransaction(Bank.BankAccount client, double amount) {
-        super(client, amount);
+        super(client, Math.abs(amount));
     }
 
     @Override

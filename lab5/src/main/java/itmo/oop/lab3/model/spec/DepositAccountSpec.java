@@ -13,7 +13,7 @@ public class DepositAccountSpec extends AccountSpec {
                         (transaction instanceof ReplenishmentTransaction ||
                                 transaction instanceof CancellationTransaction) ||
                                 account.getCreationDate().isAfter(timeProvider.currentDateTime().plus(depositTime)))
-                .addConstraint((account, transaction) -> account.getBalance() - transaction.getAmount() >= 0)
+                .addConstraint((account, transaction) -> account.getBalance() + transaction.getAmount() >= 0)
                 .dailyCalculation(account -> account.getBalance() * depositPercentPerAnnum / 100 / 365)
         );
     }

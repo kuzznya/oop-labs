@@ -7,7 +7,7 @@ public class CancellationTransaction extends Transaction {
     private final Transaction cancelling;
 
     public CancellationTransaction(Transaction cancelling) {
-        super(cancelling.account, cancelling.amount);
+        super(cancelling.account, -cancelling.amount);
         this.cancelling = cancelling;
     }
 

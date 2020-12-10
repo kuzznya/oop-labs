@@ -8,7 +8,7 @@ public class TransferTransaction extends Transaction {
     private final Bank.BankAccount receiver;
 
     public TransferTransaction(Bank.BankAccount sender, Bank.BankAccount receiver, double amount) {
-        super(sender, amount);
+        super(sender, -Math.abs(amount));
         this.receiver = receiver;
     }
 
