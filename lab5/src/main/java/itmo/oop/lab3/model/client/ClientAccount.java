@@ -7,6 +7,8 @@ import itmo.oop.lab3.model.transaction.ReplenishmentTransaction;
 import itmo.oop.lab3.model.transaction.TransferTransaction;
 import itmo.oop.lab3.model.transaction.WithdrawTransaction;
 
+import java.util.UUID;
+
 public class ClientAccount extends Account {
 
     private final Bank.BankAccount bankAccount;
@@ -31,15 +33,21 @@ public class ClientAccount extends Account {
         return bankAccount.getBalance();
     }
 
-    public final void requestWithdraw(double amount) {
-        bankAccount.execute(new WithdrawTransaction(bankAccount, amount));
+    public final UUID requestWithdraw(double amount) {
+        WithdrawTransaction withdrawTransaction = new WithdrawTransaction(bankAccount, amount);
+        bankAccount.execute(withdrawTransaction);
+        return withdrawTransaction.getId();
     }
 
-    public final void requestReplenishment(double amount) {
-        bankAccount.execute(new ReplenishmentTransaction(bankAccount, amount));
+    public final UUID requestReplenishment(double amount) {
+        ReplenishmentTransaction replenishmentTransaction = new ReplenishmentTransaction(bankAccount, amount);
+        bankAccount.execute(replenishmentTransaction);
+        return replenishmentTransaction.getId();
     }
 
-    public final void requestTransfer(AccountIdentifier receiverId, double amount) {
-        bankAccount.execute(new TransferTransaction(bankAccount, receiverId, amount));
+    public final UUID requestTransfer(AccountIdentifier receiverId, double amount) {
+        TransferTransaction transferTransaction = new TransferTransaction(bankAccount, receiverId, amount);
+        bankAccount.execute(transferTransaction);
+        return transferTransaction.getId();
     }
 }
