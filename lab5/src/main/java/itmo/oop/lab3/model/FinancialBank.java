@@ -11,8 +11,8 @@ public abstract class FinancialBank extends Bank {
 
     private final Map<AccountIdentifier, Double> accountMoneyMap = new HashMap<>();
 
-    protected FinancialBank(InterbankTransferSystem interbankTransferSystem, DateTimeProvider dateTimeProvider) {
-        super(interbankTransferSystem, dateTimeProvider);
+    protected FinancialBank(TransferSystem transferSystem, DateTimeProvider dateTimeProvider) {
+        super(transferSystem, dateTimeProvider);
     }
 
     @Override

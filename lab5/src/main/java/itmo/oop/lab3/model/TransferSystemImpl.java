@@ -6,7 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class InterbankTransferSystemImpl implements InterbankTransferSystem {
+public class TransferSystemImpl implements TransferSystem {
 
     private final Map<UUID, Bank> banks = new LinkedHashMap<>();
 

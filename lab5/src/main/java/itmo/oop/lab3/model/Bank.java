@@ -20,7 +20,7 @@ public abstract class Bank {
 
     @Getter
     private final UUID id = UUID.randomUUID();
-    private final InterbankTransferSystem interbankTransferSystem;
+    private final TransferSystem transferSystem;
     protected final DateTimeProvider dateTimeProvider;
 
     protected final List<BankAccount> accounts = new ArrayList<>();
@@ -28,11 +28,11 @@ public abstract class Bank {
     @Getter
     protected final List<Transaction> executedTransactions = new ArrayList<>();
 
-    protected Bank(InterbankTransferSystem interbankTransferSystem, DateTimeProvider dateTimeProvider) {
-        this.interbankTransferSystem = interbankTransferSystem;
+    protected Bank(TransferSystem transferSystem, DateTimeProvider dateTimeProvider) {
+        this.transferSystem = transferSystem;
         this.dateTimeProvider = dateTimeProvider;
 
-        interbankTransferSystem.registerBank(this);
+        transferSystem.registerBank(this);
     }
 
     protected abstract void createAccountData(BankAccount createdAccount);
@@ -44,8 +44,8 @@ public abstract class Bank {
     private BankContext createContext() {
         return new BankContext() {
             @Override
-            public InterbankTransferSystem getTransferSystem() {
-                return interbankTransferSystem;
+            public TransferSystem getTransferSystem() {
+                return transferSystem;
             }
 
             @Override
