@@ -11,6 +11,8 @@ public abstract class FinancialBank extends Bank {
 
     private final Map<AccountIdentifier, Double> accountMoneyMap = new HashMap<>();
 
+    private final Map<AccountIdentifier, Double> cashbackMap = new HashMap<>();
+
     protected FinancialBank(TransferSystem transferSystem, DateTimeProvider dateTimeProvider) {
         super(transferSystem, dateTimeProvider);
     }
@@ -18,6 +20,7 @@ public abstract class FinancialBank extends Bank {
     @Override
     protected void createAccountData(BankAccount createdAccount) {
         accountMoneyMap.put(createdAccount.getId(), 0.0);
+        cashbackMap.put(createdAccount.getId(), 0.0);
     }
 
     @Override
@@ -33,6 +36,19 @@ public abstract class FinancialBank extends Bank {
     @Override
     protected void replenish(BankAccount account, double amount) {
         accountMoneyMap.computeIfPresent(account.getId(), (id, value) -> value + amount);
+    }
+
+    @Override
+    protected void calculateCashback(BankAccount account) {
+        accountMoneyMap.computeIfPresent(account.getId(),
+                (id, value) -> value + account.getSpec().getDailyCalculation().apply(account));
+    }
+
+    @Override
+    protected double getCashbackAndReset(BankAccount account) {
+        double cashback = accountMoneyMap.get(account.getId());
+        accountMoneyMap.put(account.getId(), 0.0);
+        return cashback;
     }
 
     public abstract double creditLimit();

@@ -5,6 +5,7 @@ import itmo.oop.lab3.model.client.ClientAccount;
 import itmo.oop.lab3.model.spec.AccountSpec;
 import itmo.oop.lab3.model.spec.AccountType;
 import itmo.oop.lab3.model.transaction.CancellationTransaction;
+import itmo.oop.lab3.model.transaction.ReplenishmentTransaction;
 import itmo.oop.lab3.model.transaction.Transaction;
 import itmo.oop.lab3.util.DateTimeProvider;
 import lombok.EqualsAndHashCode;
@@ -33,12 +34,24 @@ public abstract class Bank {
         this.dateTimeProvider = dateTimeProvider;
 
         transferSystem.registerBank(this);
+        dateTimeProvider.addDateChangeHook(date -> accounts.forEach(this::calculateCashback));
+        dateTimeProvider.addDateChangeHook(date -> {
+            if (date.getDayOfMonth() != 1)
+                return;
+            accounts.forEach(account -> {
+                double cashback = getCashbackAndReset(account);
+                if (cashback > 0)
+                    execute(new ReplenishmentTransaction(account, cashback));
+            });
+        });
     }
 
     protected abstract void createAccountData(BankAccount createdAccount);
     protected abstract double getBalance(BankAccount account);
     protected abstract void withdraw(BankAccount account, double amount);
     protected abstract void replenish(BankAccount account, double amount);
+    protected abstract void calculateCashback(BankAccount account);
+    protected abstract double getCashbackAndReset(BankAccount account);
     protected abstract AccountSpec getAccountSpec(AccountType type);
 
     private BankContext createContext() {
@@ -97,10 +110,6 @@ public abstract class Bank {
         return accounts.stream()
                 .filter(acc -> acc.getId().equals(id))
                 .findAny();
-    }
-
-    public boolean accountExists(AccountIdentifier id) {
-        return findAccountById(id).isPresent();
     }
 
 
