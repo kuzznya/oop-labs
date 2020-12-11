@@ -40,14 +40,14 @@ public abstract class FinancialBank extends Bank {
 
     @Override
     protected void calculateCashback(BankAccount account) {
-        accountMoneyMap.computeIfPresent(account.getId(),
+        cashbackMap.computeIfPresent(account.getId(),
                 (id, value) -> value + account.getSpec().getDailyCalculation().apply(account));
     }
 
     @Override
     protected double getCashbackAndReset(BankAccount account) {
-        double cashback = accountMoneyMap.get(account.getId());
-        accountMoneyMap.put(account.getId(), 0.0);
+        double cashback = cashbackMap.get(account.getId());
+        cashbackMap.put(account.getId(), 0.0);
         return cashback;
     }
 
