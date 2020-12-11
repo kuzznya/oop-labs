@@ -1,7 +1,11 @@
 package itmo.oop.lab3.model.transaction;
 
 import itmo.oop.lab3.model.BankContext;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
+@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
 public class CancellationTransaction extends Transaction {
 
     private final Transaction cancelling;

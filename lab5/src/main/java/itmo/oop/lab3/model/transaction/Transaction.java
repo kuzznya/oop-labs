@@ -2,13 +2,13 @@ package itmo.oop.lab3.model.transaction;
 
 import itmo.oop.lab3.model.Bank;
 import itmo.oop.lab3.model.BankContext;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 import java.util.UUID;
 
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
+@EqualsAndHashCode
+@ToString
 public abstract class Transaction {
     @Getter
     protected final UUID id = UUID.randomUUID();

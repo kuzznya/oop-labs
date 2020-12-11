@@ -2,7 +2,11 @@ package itmo.oop.lab3.model.transaction;
 
 import itmo.oop.lab3.model.Bank;
 import itmo.oop.lab3.model.BankContext;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
+@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
 public class ReplenishmentTransaction extends Transaction {
 
     public ReplenishmentTransaction(Bank.BankAccount client, double amount) {

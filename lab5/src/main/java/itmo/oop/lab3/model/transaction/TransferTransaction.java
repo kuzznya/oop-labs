@@ -3,7 +3,11 @@ package itmo.oop.lab3.model.transaction;
 import itmo.oop.lab3.model.AccountIdentifier;
 import itmo.oop.lab3.model.Bank;
 import itmo.oop.lab3.model.BankContext;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
+@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
 public class TransferTransaction extends Transaction {
 
     private final WithdrawTransaction withdrawTransaction;
