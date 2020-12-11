@@ -2,6 +2,7 @@ package itmo.oop.lab3.model.spec;
 
 import itmo.oop.lab3.model.Account;
 import itmo.oop.lab3.model.transaction.Transaction;
+import itmo.oop.lab3.model.transaction.WithdrawTransaction;
 import lombok.Getter;
 
 import java.util.ArrayList;
