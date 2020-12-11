@@ -31,16 +31,15 @@ public class ClientAccount extends Account {
         return bankAccount.getBalance();
     }
 
-    protected final void requestWithdraw(double amount) {
+    public final void requestWithdraw(double amount) {
         bankAccount.execute(new WithdrawTransaction(bankAccount, amount));
     }
 
-    protected final void requestReplenishment(double amount) {
+    public final void requestReplenishment(double amount) {
         bankAccount.execute(new ReplenishmentTransaction(bankAccount, amount));
     }
 
-    protected final void requestTransfer(Bank.BankAccount receiver, double amount) {
-        // TODO: 09.12.2020 use AccountIdentifier instead of BankAccount
-        bankAccount.execute(new TransferTransaction(bankAccount, receiver, amount));
+    public final void requestTransfer(AccountIdentifier receiverId, double amount) {
+        bankAccount.execute(new TransferTransaction(bankAccount, receiverId, amount));
     }
 }

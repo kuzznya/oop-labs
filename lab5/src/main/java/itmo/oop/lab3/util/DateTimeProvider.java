@@ -6,4 +6,5 @@ import java.util.function.Consumer;
 public interface DateTimeProvider {
     ZonedDateTime currentDateTime();
     void addDateChangeHook(Consumer<ZonedDateTime> hook);
+    void stop();
 }

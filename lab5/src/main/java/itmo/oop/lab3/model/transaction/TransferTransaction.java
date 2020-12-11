@@ -1,26 +1,33 @@
 package itmo.oop.lab3.model.transaction;
 
+import itmo.oop.lab3.model.AccountIdentifier;
 import itmo.oop.lab3.model.Bank;
 import itmo.oop.lab3.model.BankContext;
 
 public class TransferTransaction extends Transaction {
 
-    private final Bank.BankAccount receiver;
+    private final WithdrawTransaction withdrawTransaction;
+    private ReplenishmentTransaction replenishmentTransaction;
+    private final AccountIdentifier receiverId;
 
-    public TransferTransaction(Bank.BankAccount sender, Bank.BankAccount receiver, double amount) {
+    public TransferTransaction(Bank.BankAccount sender, AccountIdentifier receiverId, double amount) {
         super(sender, -Math.abs(amount));
-        this.receiver = receiver;
+        withdrawTransaction = new WithdrawTransaction(sender, -amount);
+        this.receiverId = receiverId;
     }
 
     @Override
     public void execute(BankContext context) {
-        context.withdraw(super.account, super.amount);
-        context.replenish(receiver, super.amount);
+        withdrawTransaction.execute(context);
+        replenishmentTransaction = context.getTransferSystem()
+                .createReplenishmentTransaction(receiverId, super.amount);
+        replenishmentTransaction.account.execute(replenishmentTransaction);
+        executionContext = context;
     }
 
     @Override
-    public void cancel(BankContext context) {
-        context.withdraw(receiver, super.amount);
-        context.replenish(super.account, super.amount);
+    public void cancel() {
+        withdrawTransaction.cancel();
+        replenishmentTransaction.cancel();
     }
 }

@@ -1,13 +1,13 @@
 package itmo.oop.lab3.model;
 
 import itmo.oop.lab3.model.client.Client;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 import java.time.ZonedDateTime;
 
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
+@EqualsAndHashCode
+@ToString
 public abstract class Account {
 
     @Getter

@@ -13,11 +13,12 @@ public class CancellationTransaction extends Transaction {
 
     @Override
     public void execute(BankContext context) {
-        cancelling.cancel(context);
+        cancelling.cancel();
+        executionContext = context;
     }
 
     @Override
-    public void cancel(BankContext context) {
-        cancelling.execute(context);
+    public void cancel() {
+        cancelling.execute(executionContext);
     }
 }

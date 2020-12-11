@@ -6,15 +6,14 @@ import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.BiFunction;
-import java.util.function.BiPredicate;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 public abstract class AccountSpec {
     @Getter
-    private final List<BiPredicate<Account, Transaction>> constraints;
+    private final List<Predicate<Transaction>> constraints;
     @Getter
-    private final List<BiFunction<Account, Transaction, Double>> fees;
+    private final List<Function<Transaction, Double>> fees;
     @Getter
     private final Function<Account, Double> dailyCalculation;
 
@@ -30,20 +29,16 @@ public abstract class AccountSpec {
 
     protected static class AccountSpecBuilder {
 
-        private final List<BiPredicate<Account, Transaction>> constraints = new ArrayList<>();
-        private final List<BiFunction<Account, Transaction, Double>> fees = new ArrayList<>();
+        private final List<Predicate<Transaction>> constraints = new ArrayList<>();
+        private final List<Function<Transaction, Double>> fees = new ArrayList<>();
         private Function<Account, Double> dailyCalculation = account -> 0.0;
 
-        public AccountSpecBuilder() {
-            constraints.add((account, transaction) -> !account.isSuspicious());
-        }
-
-        public AccountSpecBuilder addConstraint(BiPredicate<Account, Transaction> constraint) {
+        public AccountSpecBuilder addConstraint(Predicate<Transaction> constraint) {
             constraints.add(constraint);
             return this;
         }
 
-        public AccountSpecBuilder addFee(BiFunction<Account, Transaction, Double> fee) {
+        public AccountSpecBuilder addFee(Function<Transaction, Double> fee) {
             fees.add(fee);
             return this;
         }

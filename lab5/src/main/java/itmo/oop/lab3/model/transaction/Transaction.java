@@ -17,6 +17,8 @@ public abstract class Transaction {
     @Getter
     protected final double amount;
 
+    protected BankContext executionContext;
+
     public abstract void execute(BankContext context);
-    public abstract void cancel(BankContext context);
+    public abstract void cancel();
 }

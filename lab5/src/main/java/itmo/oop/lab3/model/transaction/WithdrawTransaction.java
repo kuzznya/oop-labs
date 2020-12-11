@@ -11,11 +11,12 @@ public class WithdrawTransaction extends Transaction {
 
     @Override
     public void execute(BankContext context) {
-        context.withdraw(super.account, super.amount);
+        context.withdraw(super.account, -super.amount);
+        executionContext = context;
     }
 
     @Override
-    public void cancel(BankContext context) {
-        context.replenish(super.account, super.amount);
+    public void cancel() {
+        executionContext.replenish(super.account, -super.amount);
     }
 }

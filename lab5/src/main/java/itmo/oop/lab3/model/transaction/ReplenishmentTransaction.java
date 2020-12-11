@@ -11,11 +11,12 @@ public class ReplenishmentTransaction extends Transaction {
 
     @Override
     public void execute(BankContext context) {
+        executionContext = context;
         context.replenish(super.account, super.amount);
     }
 
     @Override
-    public void cancel(BankContext context) {
-        context.withdraw(super.account, super.amount);
+    public void cancel() {
+        executionContext.withdraw(super.account, super.amount);
     }
 }

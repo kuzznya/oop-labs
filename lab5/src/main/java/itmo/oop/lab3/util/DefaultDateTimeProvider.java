@@ -11,9 +11,11 @@ public class DefaultDateTimeProvider implements DateTimeProvider {
 
     private final List<Consumer<ZonedDateTime>> hooks = new ArrayList<>();
 
+    private final Timer timer;
+
     public DefaultDateTimeProvider() {
-        Timer t = new Timer();
-        t.schedule(new DateCheckerTask(), 3_600_000, 3_600_000);
+        timer = new Timer();
+        timer.schedule(new DateCheckerTask(), 3_600_000, 3_600_000);
     }
 
     @Override
@@ -26,6 +28,11 @@ public class DefaultDateTimeProvider implements DateTimeProvider {
         synchronized (hooks) {
             hooks.add(hook);
         }
+    }
+
+    @Override
+    public void stop() {
+        timer.cancel();
     }
 
     private class DateCheckerTask extends TimerTask {
