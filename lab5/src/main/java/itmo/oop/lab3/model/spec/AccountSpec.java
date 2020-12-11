@@ -19,6 +19,8 @@ public abstract class AccountSpec {
 
     protected AccountSpec(AccountSpecBuilder builder) {
         constraints = builder.constraints;
+        constraints.add(transaction ->
+                !(transaction instanceof WithdrawTransaction && transaction.getAccount().isSuspicious()));
         fees = builder.fees;
         dailyCalculation = builder.dailyCalculation;
     }

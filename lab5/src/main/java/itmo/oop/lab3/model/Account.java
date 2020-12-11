@@ -20,6 +20,6 @@ public abstract class Account {
     public abstract double getBalance();
 
     public boolean isSuspicious() {
-        return client.getAddress().isPresent() && client.getPassport().isPresent();
+        return !(client.getAddress().isPresent() && client.getPassport().isPresent());
     }
 }
