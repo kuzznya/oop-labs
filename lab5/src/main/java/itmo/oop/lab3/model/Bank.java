@@ -82,7 +82,7 @@ public abstract class Bank {
         executedTransactions.stream()
                 .filter(t -> t.getId().equals(id))
                 .findAny()
-                .ifPresentOrElse(this::execute,
+                .ifPresentOrElse(this::cancel,
                         () -> {throw new IllegalArgumentException("Transaction with id " + id + " not found");});
     }
 
