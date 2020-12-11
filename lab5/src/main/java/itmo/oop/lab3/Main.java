@@ -9,6 +9,7 @@ import itmo.oop.lab3.model.client.ClientAccount;
 import itmo.oop.lab3.model.spec.AccountType;
 import itmo.oop.lab3.util.DateTimeProvider;
 import itmo.oop.lab3.util.DefaultDateTimeProvider;
+import itmo.oop.lab3.util.DemoDateTimeProvider;
 
 import java.time.Duration;
 import java.util.UUID;
@@ -16,7 +17,7 @@ import java.util.UUID;
 public class Main {
 
     public static void main(String[] args) {
-        DateTimeProvider dateTimeProvider = new DefaultDateTimeProvider();
+        DemoDateTimeProvider dateTimeProvider = new DemoDateTimeProvider();
 
         try {
 
@@ -133,10 +134,10 @@ public class Main {
             account.requestTransfer(account2.getId(), 1_000);
             System.out.println(account.getBalance() + "; " + account2.getBalance());
 
-            try {
-                Thread.sleep(3_600);
-            } catch (Exception ignored) {}
+            dateTimeProvider.nextMonth();
+            System.out.println(account2.getBalance());
 
+            dateTimeProvider.nextMonth();
             System.out.println(account2.getBalance());
 
         } finally {
